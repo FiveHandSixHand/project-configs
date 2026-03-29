@@ -63,6 +63,52 @@ curl -X POST http://localhost:{서비스포트}/actuator/refresh
 
 ---
 
+## 🧪 설정 반영 확인 (Test)
+
+설정을 수정하거나 새로 추가한 후, `config-server`가 해당 파일을 정상적으로 읽어오는지 아래 URL을 통해 미리 확인할 수 있습니다.
+
+### 1. 사전 준비
+
+1. infra-repo에서 `docker-compose up -d`
+2. `docker ps` 로 실행 확인
+3. config-server 실행
+
+### 2. 브라우저에서 확인하기
+
+- **기본 형식**: `http://localhost:8888/{service-name}/{profile}/{label}`
+- **예시 (user-service의 dev 브랜치 설정 확인)**:
+
+```
+http://localhost:8888/user-service/default/dev
+```
+
+주의!!!! project-configs에 push한 branch가 dev인 경우 위와 같이 합니다.
+만약 다른 브랜치에서 작업하고 아직 merge 하기 전이라면 아래와 같이 합니다.
+
+```
+http://localhost:8888/user-service/default/{브랜치명}
+```
+
+![Config Priority Diagram](./docs/images/test.png)
+
+### 3. 결과 체크리스트
+
+출력된 JSON 데이터에서 아래 항목을 확인하세요.
+
+- **`propertySources`**: 이 배열 안에 본인이 작성한 파일 경로와 설정값들이 포함되어 있어야 합니다.
+- **`version`**: GitHub의 최신 커밋 해시값이 찍혀 있는지 확인하세요. 만약 옛날 값이 나온다면 `config-server`를 재시작하거나 캐시를 확인해야 합니다.
+- **우선순위**: 배열의 앞쪽에 올수록 우선순위가 높은 설정입니다. (서비스 전용 설정 > 공통 설정 순서인지 확인)
+
+---
+
+## 🔐 보안 및 로컬 환경 설정 (.env)
+
+본 레포지토리의 설정 파일(`yml`)에는 보안을 위해 실제 비밀번호 대신 `${DB_PASSWORD}`와 같은 **환경 변수 플레이스홀더**를 사용합니다.
+
+서비스 실행 시, 본인의 로컬 환경(`infra-repo` 내 `.env` 파일 등)에 설정된 실제 환경 변수값이 주입됩니다. **실제 비밀번호를 절대 이 레포지토리에 직접 기입하여 Push 하지 마세요.**
+
+---
+
 ## ⚠️ 주의사항
 
 1. **파일명 일치**: 파일명이 서비스의 `spring.application.name`과 다르면 config-server가 파일을 찾지 못합니다.

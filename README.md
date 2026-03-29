@@ -11,18 +11,14 @@
 모든 설정 파일은 아래의 계층 구조를 따릅니다.
 
 ```text
-
-project-configs
-
-├── common/                         # 모든 서비스 공통 설정
-│   ├── application.yml             # \[기본] 로컬/공통 DB, Eureka 정보
-│   ├── application-dev.yml         # \[개발] 개발 서버용 공통 정보
-│   └── application-prod.yml        # \[운영] 실제 운영 서버용 공통 정보
-│
-└── {service-name}/                 # 각 서비스 전용 폴더 (예: user-service)
-&#x20;   ├── {service-name}.yml          # 서비스별 기본 설정 (포트 등)
-
-&#x20;   └── {service-name}-{profile}.yml # 서비스별 환경 설정 (dev, prod)
+project-configs/
+└── configs/                  # 모든 설정은 이 폴더 내에 위치합니다.
+    ├── common/               # 모든 서비스 공통 설정 (DB, Eureka 등)
+    │   ├── application.yml
+    │   └── application-dev.yml
+    └── {service-name}/       # 서비스 전용 폴더 (예: user-service)
+        ├── {service-name}.yml (local)
+        └── {service-name}-dev.yml
 ```
 
 ---

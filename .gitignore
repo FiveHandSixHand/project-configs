@@ -1,0 +1,28 @@
+# --- OS generated files ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# --- JetBrains (IntelliJ, etc.) ---
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# --- VS Code ---
+.vscode/
+*.code-workspace
+
+# --- Backup & Temp files ---
+*.bak
+*.swp
+*~
+*.tmp
+
+# --- Config Specific ---
+temp/
+test-*.yml

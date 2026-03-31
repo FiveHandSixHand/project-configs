@@ -5,6 +5,7 @@ custom:
     host: ${POSTGRES_HOST:localhost}
     port: ${POSTGRES_PORT:5432}
     name: ${DB_NAME:da_it_da_db}
+    # schema: 각 서비스에서 반드시 정의해야 함 (예: user_service)
 
 spring:
   datasource:

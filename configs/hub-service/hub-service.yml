@@ -1,0 +1,7 @@
+# hub-service.yml
+server:
+  port: 8082
+
+custom:
+  db:
+    schema: hub_service

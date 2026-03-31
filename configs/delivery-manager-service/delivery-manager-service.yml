@@ -1,0 +1,7 @@
+# delivery-manager-service.yml
+server:
+  port: 8084
+
+custom:
+  db:
+    schema: delivery_manager_service

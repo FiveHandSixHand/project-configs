@@ -1,0 +1,7 @@
+# order-service.yml
+server:
+  port: 8086
+
+custom:
+  db:
+    schema: order_service

@@ -1,0 +1,7 @@
+# product-service.yml
+server:
+  port: 8088
+
+custom:
+  db:
+    schema: product_service

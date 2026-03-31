@@ -1,4 +1,3 @@
-# gateway-server.yml
 server:
   port: 8080
 
@@ -58,9 +57,6 @@ spring:
           predicates:
             - Path=/api/v1/products/**
 
-# Keycloak 연동 설정
-# 이 설정은 Gateway에서 직접 JWT를 검증할 때 사용됩니다.
-spring:
   security:
     oauth2:
       resourceserver:

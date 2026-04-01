@@ -1,13 +1,13 @@
 # user-service/user-service.yml
+custom:
+  db:
+    schema: user_service
+
 server:
   port: 8081
 
-# 서비스 고유의 비즈니스 설정 예시
-user-service:
-  message: "이 메시지는 Config Server의 user-service.yml에서 불러온 메시지입니다."
-  feature-x-enabled: true
-
-# 로그 레벨 개별 설정
-logging:
-  level:
-    com.example.userservice: DEBUG
+keycloak:
+  auth-server-url: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:9090}
+  realm: ${KEYCLOAK_REALM:da-it-da-realm}
+  client-id: user-service-client
+  client-secret: ${KEYCLOAK_CLIENT_SECRET} # .env에서 주입됨

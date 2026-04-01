@@ -1,49 +1,46 @@
 # common/application.yml
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      # Eureka 서버 주소도 환경 변수로 관리 (기본값은 localhost)
-      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+custom:
+  db:
+    host: ${POSTGRES_HOST:localhost}
+    port: ${POSTGRES_PORT:5432}
+    name: ${DB_NAME:da_it_da_db}
+    # schema: 각 서비스에서 반드시 정의해야 함 (예: user_service)
 
 spring:
-  # 1. PostgreSQL 설정
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT}/${DB_NAME}
-    username: ${DB_USERNAME}
+    # 각 서비스의 custom.db.schema 값을 받아 URL 조립
+    url: jdbc:postgresql://${custom.db.host}:${custom.db.port}/${custom.db.name}?currentSchema=${custom.db.schema}
+    username: ${DB_USERNAME:postgres_daitda}
     password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
 
-  # 2. Redis 설정
-  data:
-    redis:
-      host: ${REDIS_HOST:localhost}
-      port: ${REDIS_PORT:6379}
-
-  # 3. JPA/Hibernate 설정
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
+        default_schema: ${custom.db.schema}
         format_sql: true
 
-# 4. Zipkin (Tracing) 설정
-management:
-  tracing:
-    sampling:
-      probability: 1.0
-  zipkin:
-    tracing:
-      endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+eureka:
+  client:
+    register-with-eureka: true # 명시적으로 작성하여 가독성 확보
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka/
 
-# 5. Keycloak 설정
-keycloak:
-  auth-server-url: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:9090}
-  admin-user: ${KC_ADMIN_USER}
-  admin-password: ${KC_ADMIN_PASSWORD}
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,info,metrics

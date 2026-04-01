@@ -1,0 +1,7 @@
+# notification-service.yml
+server:
+  port: 8087
+
+custom:
+  db:
+    schema: notification_service

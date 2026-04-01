@@ -1,0 +1,7 @@
+# company-service.yml
+server:
+  port: 8085
+
+custom:
+  db:
+    schema: company_service

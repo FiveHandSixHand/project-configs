@@ -11,51 +11,53 @@ spring:
         locator:
           enabled: true # 유레카를 통해 서비스 위치 찾기
       
-      routes:
-        - id: user-service
-          uri: lb://user-service
-          predicates:
-            - Path=/api/v1/users/**
+      server:
+        webflux:
+          routes:
+            - id: user-service
+              uri: lb://user-service
+              predicates:
+                - Path=/api/v1/users/**
 
-        - id: auth-service
-          uri: lb://user-service
-          predicates:
-            - Path=/api/v1/auth/**
+            - id: auth-service
+              uri: lb://user-service
+              predicates:
+                - Path=/api/v1/auth/**
 
-        - id: hub-service
-          uri: lb://hub-service
-          predicates:
-            - Path=/api/v1/hubs/**, /api/v1/hub-inventories/**
+            - id: hub-service
+              uri: lb://hub-service
+              predicates:
+                - Path=/api/v1/hubs/**, /api/v1/hub-inventories/**
 
-        - id: delivery-service
-          uri: lb://delivery-service
-          predicates:
-            - Path=/api/v1/deliveries/**
+            - id: delivery-service
+              uri: lb://delivery-service
+              predicates:
+                - Path=/api/v1/deliveries/**
 
-        - id: delivery-manager-service
-          uri: lb://delivery-manager-service
-          predicates:
-            - Path=/api/v1/delivery-managers/**
+            - id: delivery-manager-service
+              uri: lb://delivery-manager-service
+              predicates:
+                - Path=/api/v1/delivery-managers/**
 
-        - id: company-service
-          uri: lb://company-service
-          predicates:
-            - Path=/api/v1/companies/**
+            - id: company-service
+              uri: lb://company-service
+              predicates:
+                - Path=/api/v1/companies/**
 
-        - id: order-service
-          uri: lb://order-service
-          predicates:
-            - Path=/api/v1/orders/**
+            - id: order-service
+              uri: lb://order-service
+              predicates:
+                - Path=/api/v1/orders/**
 
-        - id: notification-service
-          uri: lb://notification-service
-          predicates:
-            - Path=/api/v1/slackmessages/**
+            - id: notification-service
+              uri: lb://notification-service
+              predicates:
+                - Path=/api/v1/slackmessages/**
 
-        - id: product-service
-          uri: lb://product-service
-          predicates:
-            - Path=/api/v1/products/**
+            - id: product-service
+              uri: lb://product-service
+              predicates:
+                - Path=/api/v1/products/**
 
   security:
     oauth2:

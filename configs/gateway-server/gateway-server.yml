@@ -7,12 +7,14 @@ spring:
 
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true # 유레카를 통해 서비스 위치 찾기
-      
       server:
         webflux:
+          # 유레카를 통해 서비스 위치를 자동으로 찾는 설정 (최신 규격으로 이동)
+          discovery:
+            locator:
+              enabled: true 
+          
+          # 라우팅 설정
           routes:
             - id: user-service
               uri: lb://user-service
@@ -20,6 +22,7 @@ spring:
                 - Path=/api/v1/users/**
 
             - id: auth-service
+              # 현재 설정상 user-service가 인증을 함께 담당하는 구조라면 유지하세요.
               uri: lb://user-service
               predicates:
                 - Path=/api/v1/auth/**
@@ -59,6 +62,7 @@ spring:
               predicates:
                 - Path=/api/v1/products/**
 
+  # Keycloak 보안 설정
   security:
     oauth2:
       resourceserver:

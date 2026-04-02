@@ -14,6 +14,13 @@ spring:
     username: ${DB_USERNAME:postgres_daitda}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
+  cloud:
+    gateway:
+      server:
+        webflux:
+          httpclient:
+            connect-timeout: 5000
+            response-timeout: 5s
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect

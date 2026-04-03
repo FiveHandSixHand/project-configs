@@ -46,6 +46,29 @@ feign:
         connectTimeout: 5000
         readTimeout: 5000
 
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 5
+        minimumNumberOfCalls: 5
+        slowCallDurationThreshold: 3000ms 
+        slowCallRateThreshold: 60
+        failureRateThreshold: 50
+        waitDurationInOpenState: 20s
+        permittedNumberOfCallsInHalfOpenState: 3
+        # 서킷 브레이커가 전이될 때 로그를 남기도록 설정 (디버깅용)
+        eventConsumerBufferSize: 10
+        
+  timelimiter:
+    configs:
+      default:
+        # [중요] CircuitBreaker의 slowCall보다 이 타임아웃이 우선순위가 높습니다.
+        # 서비스 응답이 5초를 넘기면 강제로 종료하고 Fallback을 실행합니다.
+        timeoutDuration: 5s
+
 management:
   endpoints:
     web:

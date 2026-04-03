@@ -12,7 +12,18 @@ spring:
           # 유레카를 통해 서비스 위치를 자동으로 찾는 설정 (최신 규격으로 이동)
           discovery:
             locator:
-              enabled: true 
+              enabled: true
+
+          default-filters: # 모든 라우트에 적용됨
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 1        # 초당 생성되는 토큰
+                redis-rate-limiter.burstCapacity: 10      # 최대 담아둘 수 있는 토큰
+                key-resolver: "#{@userKeyResolver}"    # Java 코드로 만든 Bean 이름
+            - name: CircuitBreaker
+              args:
+                name: globalCircuitBreaker
+                fallbackUri: forward:/fallback/common
           
           # 라우팅 설정
           routes:

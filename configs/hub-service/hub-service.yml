@@ -6,9 +6,7 @@ custom:
   db:
     schema: hub_service
 
-naver:
-  map:
-    client-id: ${NAVER_MAP_CLIENT_ID}
-    client-secret: ${NAVER_MAP_CLIENT_SECRET}
-    direction-base-url: https://naveropenapi.apigw.ntruss.com/map-direction/v1
-    geocode-base-url: https://naveropenapi.apigw.ntruss.com/map-geocode/v2
+google:
+  maps:
+    api-key: ${GOOGLE_MAPS_API_KEY}
+    routes-base-url: https://routes.googleapis.com

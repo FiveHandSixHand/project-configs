@@ -8,5 +8,5 @@ custom:
 
 kakao:
   mobility:
-  rest-api-key: ${KAKAO_MOBILITY_REST_API_KEY}
-  directions-base-url: https://apis-navi.kakaomobility.com
+    rest-api-key: ${KAKAO_MOBILITY_REST_API_KEY}
+    directions-base-url: https://apis-navi.kakaomobility.com

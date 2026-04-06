@@ -6,7 +6,7 @@ custom:
   db:
     schema: hub_service
 
-google:
-  maps:
-    api-key: ${GOOGLE_MAPS_API_KEY}
-    routes-base-url: https://routes.googleapis.com
+kakao:
+  mobility:
+  rest-api-key: ${KAKAO_MOBILITY_REST_API_KEY}
+  directions-base-url: https://apis-navi.kakaomobility.com
